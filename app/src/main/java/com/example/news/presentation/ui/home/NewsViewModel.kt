@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.news.domain.model.Article
 import com.example.news.domain.usecase.GetNewsByCountryUseCase
 import com.example.news.domain.usecase.GetNewsUseCase
+import com.example.news.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,7 @@ class NewsViewModel @Inject constructor(
     val getNewsUseCase: GetNewsUseCase,
     val getNewsByCountryUseCase: GetNewsByCountryUseCase
 ): ViewModel() {
-    private val _articles = MutableStateFlow<List<Article>>(emptyList())
+    private val _articles = MutableStateFlow<Resource<List<Article>>>(Resource.Loading())
     val articles = _articles.asStateFlow()
 
     init {
@@ -25,13 +26,13 @@ class NewsViewModel @Inject constructor(
 
     fun getNews(){
         viewModelScope.launch {
-            _articles.value = getNewsUseCase().toList()
+            _articles.value = getNewsUseCase()
         }
     }
 
     fun getNewsByCountry(country: String){
         viewModelScope.launch {
-            _articles.value = getNewsByCountryUseCase(country).toList()
+            _articles.value = getNewsByCountryUseCase(country)
         }
     }
 

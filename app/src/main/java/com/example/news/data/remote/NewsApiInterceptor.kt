@@ -1,8 +1,9 @@
-package com.example.news.data.repository
+package com.example.news.data.remote
 
 import android.util.Log
 import com.example.news.BuildConfig
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 import okio.Buffer
 import java.nio.charset.Charset
@@ -14,6 +15,9 @@ class NewsApiInterceptor : Interceptor {
         // Add API Key
         val newUrl = request.url.newBuilder()
             .addQueryParameter("apiKey", BuildConfig.API_KEY)
+            .addQueryParameter("q", "India")
+            .addQueryParameter("pageSize","100")
+            .addQueryParameter("pageIn","1")
             .build()
         val newRequest = request.newBuilder().url(newUrl).build()
 
@@ -29,7 +33,7 @@ class NewsApiInterceptor : Interceptor {
         return response
     }
 
-    private fun logRequest(request: okhttp3.Request) {
+    private fun logRequest(request: Request) {
         Log.d("NewsApiInterceptor", "----- REQUEST -----")
         Log.d("NewsApiInterceptor", "${request.method} ${request.url}")
         Log.d("NewsApiInterceptor", "Headers: ${request.headers}")

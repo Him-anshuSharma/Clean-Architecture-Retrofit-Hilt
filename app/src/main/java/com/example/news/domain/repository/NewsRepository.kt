@@ -1,8 +1,9 @@
 package com.example.news.domain.repository
 
 import com.example.news.domain.model.Article
+import com.example.news.utils.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
-    suspend fun getNews() : List<Article>
-    suspend fun getNewsByCountry(country: String): List<Article>
+    fun getNews() : Flow<List<Article>>
 }

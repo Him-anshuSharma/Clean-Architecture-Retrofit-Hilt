@@ -1,8 +1,8 @@
 package com.example.news.di
 
 import com.example.news.BuildConfig
-import com.example.news.data.repository.NewsApi
-import com.example.news.data.repository.NewsApiInterceptor
+import com.example.news.data.remote.NewsApi
+import com.example.news.data.remote.NewsApiInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
